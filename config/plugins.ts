@@ -15,7 +15,7 @@ export default ({ env }) => ({
             Bucket: env("MINIO_BUCKET"),
           },
         },
-        baseUrl: env("MINIO_ENDPOINT_URL"),
+        baseUrl: env("MINIO_BASE_URL"),
       },
     },
   },
