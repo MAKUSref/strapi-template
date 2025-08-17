@@ -1,24 +1,21 @@
 export default ({ env }) => ({
   upload: {
     config: {
-      provider: "aws-s3",
+      provider: "@strapi/provider-upload-aws-s3",
       providerOptions: {
         s3Options: {
-          region: env("AWS_REGION"),
           credentials: {
-            accessKeyId: env("AWS_ACCESS_KEY_ID"),
-            secretAccessKey: env("AWS_ACCESS_SECRET"),
+            accessKeyId: env("MINIO_ACCESS_KEY"),
+            secretAccessKey: env("MINIO_SECRET_KEY"),
           },
+          region: "us-east-1", // MinIO doesn't use this but Strapi requires it
+          endpoint: env("MINIO_ENDPOINT_URL"), // e.g., https://your-minio-app.up.railway.app
+          forcePathStyle: true, // IMPORTANT for MinIO
           params: {
-            ACL: "public-read",
-            Bucket: env("AWS_BUCKET_NAME"),
+            Bucket: env("MINIO_BUCKET"),
           },
         },
-      },
-      actionOptions: {
-        upload: {},
-        uploadStream: {},
-        delete: {},
+        baseUrl: env("MINIO_ENDPOINT_URL"),
       },
     },
   },
