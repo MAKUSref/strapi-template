@@ -15,7 +15,7 @@ export default ({ env }) => ({
             Bucket: env("MINIO_BUCKET"),
           },
         },
-        baseUrl: env("MINIO_BASE_URL"),
+        baseUrl: `${env("MINIO_BASE_URL")}/${env("MINIO_BUCKET")}`,
       },
     },
   },
@@ -41,11 +41,10 @@ export default ({ env }) => ({
           user: env("SMTP_USERNAME"),
           pass: env("SMTP_PASSWORD"),
         },
-        // ... any custom nodemailer options
       },
       settings: {
-        defaultFrom: "hello@example.com",
-        defaultReplyTo: "hello@example.com",
+        defaultFrom: env("SMTP_USERNAME"),
+        defaultReplyTo: env("DEFAULT_TO_EMAIL"),
       },
     },
   },
